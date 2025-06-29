@@ -9,6 +9,7 @@ export default function ContactForm() {
   const [form, setForm] = useState({
     nume: '',
     prenume: '',
+    email: '',
     telefon: '',
     mesaj: ''
   });
@@ -46,7 +47,7 @@ export default function ContactForm() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    navigate('/plata', { state: { pret } });
+    navigate('/plata', { state: { pret, email: form.email } });
   };
 
   return (
@@ -56,6 +57,9 @@ export default function ContactForm() {
       </label>
       <label>Prenume
         <input type="text" name="prenume" value={form.prenume} onChange={handleChange} required />
+      </label>
+      <label>Email
+        <input type="email" name="email" value={form.email} onChange={handleChange} required />
       </label>
       <label>Număr de telefon
         <input type="tel" name="telefon" value={form.telefon} onChange={handleChange} required pattern="[0-9+ ]{10,}" />

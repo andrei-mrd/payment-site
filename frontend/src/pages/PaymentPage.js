@@ -16,6 +16,7 @@ function CheckoutForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const suma = location.state && location.state.pret !== undefined ? location.state.pret : '-';
+  const email = location.state && location.state.email;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,6 +50,20 @@ function CheckoutForm() {
       setError(result.error.message);
     } else if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
       setSuccess(true);
+      // Trimit email de confirmare
+      if (email) {
+        fetch('http://localhost:5000/api/send-success-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        }).then(res => res.json()).then(data => {
+          if (!data.success) {
+            setError('Plata a fost efectuată, dar emailul nu a putut fi trimis.');
+          }
+        }).catch(() => {
+          setError('Plata a fost efectuată, dar emailul nu a putut fi trimis.');
+        });
+      }
     }
     setLoading(false);
   };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ContactForm.css';
 
@@ -14,38 +14,43 @@ export default function ContactForm() {
   });
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const calculeazaPret = async () => {
+      if (!form.mesaj) {
+        setPret(null);
+        setShowPret(false);
+        return;
+      }
+      setLoading(true);
+      try {
+        const res = await fetch('http://localhost:5000/api/calculeaza-pret', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mesaj: form.mesaj })
+        });
+        const data = await res.json();
+        setPret(data.pret);
+        setShowPret(true);
+      } catch {
+        setPret(null);
+        setShowPret(false);
+      }
+      setLoading(false);
+    };
+    calculeazaPret();
+  }, [form.mesaj]);
+
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setShowPret(false);
-  };
-
-  const calculeazaPret = async () => {
-    setLoading(true);
-    setShowPret(false);
-    try {
-      const res = await fetch('http://localhost:5000/api/calculeaza-pret', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mesaj: form.mesaj })
-      });
-      const data = await res.json();
-      setPret(data.pret);
-      setShowPret(true);
-    } catch {
-      setPret(null);
-      setShowPret(false);
-    }
-    setLoading(false);
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    // Poți adăuga aici logica de trimitere către backend dacă vrei
     navigate('/plata', { state: { pret } });
   };
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit}>
+    <form className="contact-form" onSubmit={handleSubmit} style={{ minHeight: 520, width: 480, maxWidth: '98vw' }}>
       <label>Nume
         <input type="text" name="nume" value={form.nume} onChange={handleChange} required />
       </label>
@@ -58,7 +63,6 @@ export default function ContactForm() {
       <label>Mesaj
         <textarea name="mesaj" value={form.mesaj} onChange={handleChange} required rows={5} />
       </label>
-      <button type="button" onClick={calculeazaPret} style={{marginBottom:'0.7rem'}}>Calculează prețul</button>
       {loading && (
         <div style={{color:'#fff',marginTop:'-0.5rem',marginBottom:'0.5rem',fontWeight:'bold'}}>
           Se calculează prețul...

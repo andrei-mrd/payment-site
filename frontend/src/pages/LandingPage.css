@@ -1,0 +1,41 @@
+.landing-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #61dafb;
+  letter-spacing: 2px;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.landing-desc {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  color: #fff;
+  opacity: 0.9;
+}
+.App-header {
+  background: linear-gradient(135deg, #8f00ff 0%, #0a2540 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 8s ease-in-out infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  box-shadow: 0 4px 32px 0 rgba(143,0,255,0.10);
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -1,0 +1,138 @@
+.App-header {
+  background: linear-gradient(135deg, #8f00ff 0%, #0a2540 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 8s ease-in-out infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  box-shadow: 0 4px 32px 0 rgba(143,0,255,0.10);
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.payment-container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.12);
+  padding: 48px 36px;
+  max-width: 520px;
+  width: 100%;
+}
+.payment-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #2d3748;
+}
+.payment-container button {
+  width: 100%;
+  background: #635bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.payment-container button:disabled {
+  background: #b3b3b3;
+  cursor: not-allowed;
+}
+.payment-container .StripeElement {
+  background: #f6f8fa;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 18px;
+}
+.payment-container div[style*='color: red'] {
+  text-align: center;
+}
+.payment-container div[style*='color: green'] {
+  text-align: center;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+}
+.input-group label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+.input-group input {
+  padding: 16px 14px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 1.15rem;
+  background: #f6f8fa;
+  outline: none;
+  transition: border 0.2s;
+}
+.input-group input:focus {
+  border: 1.5px solid #8f00ff;
+  background: #fff;
+}
+.input-row {
+  display: flex;
+  gap: 18px;
+}
+.stripe-input {
+  background: #f6f8fa;
+  padding: 16px 14px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 1.15rem;
+  margin-bottom: 0;
+}
+.stripe-input--invalid {
+  border: 1.5px solid #ff4d4f;
+}
+.input-row .input-group:last-child .stripe-input {
+  min-width: 120px;
+  width: 100%;
+  max-width: 180px;
+}
+@media (max-width: 600px) {
+  .payment-container {
+    padding: 24px 6px;
+    max-width: 98vw;
+  }
+  .input-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+.back-landing-btn {
+  background: #8f00ff;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(143,0,255,0.10);
+  transition: background 0.2s, color 0.2s;
+}
+.back-landing-btn:hover {
+  background: #0a2540;
+  color: #fff;
+}

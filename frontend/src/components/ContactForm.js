@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ContactForm.css';
 
 export default function ContactForm() {
+  const [showPret, setShowPret] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [pret, setPret] = useState(null);
   const [form, setForm] = useState({
     nume: '',
     prenume: '',
     telefon: '',
     mesaj: ''
   });
-  const [pret, setPret] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [showPret, setShowPret] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,27 +40,8 @@ export default function ContactForm() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    let pretFinal = pret;
-    if (pret === null || !showPret) {
-      setLoading(true);
-      try {
-        const res = await fetch('http://localhost:5000/api/calculeaza-pret', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mesaj: form.mesaj })
-        });
-        const data = await res.json();
-        pretFinal = data.pret;
-        setPret(data.pret);
-        setShowPret(true);
-      } catch {
-        pretFinal = null;
-        setPret(null);
-        setShowPret(false);
-      }
-      setLoading(false);
-    }
-    alert(`Formular trimis!${pretFinal !== null ? ' Prețul este: ' + pretFinal + ' lei' : ''}`);
+    // Poți adăuga aici logica de trimitere către backend dacă vrei
+    navigate('/plata', { state: { pret } });
   };
 
   return (
